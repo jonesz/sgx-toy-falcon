@@ -1,0 +1,17 @@
+enclave {
+
+  /* TODO: Do Preprocessor headers work in includes? */
+
+  trusted {
+    public sgx_status_t trust_falcon_keygen();
+    /* MAX_SIG_LEN Preprocessor. */
+    public sgx_status_t trust_falcon_sign([out, size=2049] uint8_t *sig,
+    [out] size_t *sig_len, [in, size=pt_len] uint8_t *plaintext, size_t pt_len);
+  };
+
+  untrusted {
+    void ocall_print_string([in, string] const char *str);
+    void ocall_print([in, size=str_len] char *str, size_t str_len);
+  };
+
+};
